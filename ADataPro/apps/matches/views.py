@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
-def index(requests):
-    return HttpResponse("Привет, мир!")
+from .models import Matches
+
+def index(request):
+    matches_list = Matches.objects.all()
+    return render(request, 'matches/list.html', {'matches_list': matches_list})

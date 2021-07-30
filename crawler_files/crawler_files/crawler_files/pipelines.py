@@ -5,19 +5,18 @@
 
 
 # useful for handling different item types with a single interface
-import logging
+
 import sqlite3
 
 class CrawlerFilesPipeline:
     def __init__(self):
-        self.connection = sqlite3.connect('database.db')
+        self.connection = sqlite3.connect('../../db.sqlite3')
         self.cursor = self.connection.cursor()
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS AllMatches(Team1 TEXT, Team2 TEXT, date TEXT)")
 
     def process_item(self, item, spider):
   
         self.cursor.execute(
-            """INSERT INTO AllMatches (Team1, Team2, date) values (?, ?, ?)""",
+            """INSERT INTO matches_matches (team1_name, team2_name, date_match) values (?, ?, ?)""",
             (item['Team1'], item['Team2'], item['Date']),
         )
         self.connection.commit()
