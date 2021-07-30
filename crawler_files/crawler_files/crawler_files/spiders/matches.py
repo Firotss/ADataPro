@@ -1,5 +1,4 @@
 import scrapy
-from scrapy.exceptions import CloseSpider
 from crawler_files.items import MatchesInfo
 from datetime import datetime
 
@@ -17,7 +16,7 @@ class MatchesInfoClass(scrapy.Spider):
         for allMatches in jsonresponse:
             item["Team1"] = allMatches["team1"]["teamName"]
             item["Team2"] = allMatches["team2"]["teamName"]
-            #item["Result"] = 
+            item["Date"] = allMatches["matchDateTime"]
             print("- - - - - - - - - - - - - - - - - - - -")
             print(item)
             print("- - - - - - - - - - - - - - - - - - - -")

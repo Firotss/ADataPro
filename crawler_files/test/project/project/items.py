@@ -6,12 +6,10 @@
 import scrapy
 
 
-class MatchesInfo(scrapy.Item):
+class ProjectItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    Team1 = scrapy.Field()
-    Team2 = scrapy.Field()
-    #Result = scrapy.Field()
-    Date = scrapy.Field()
-    
+    title = scrapy.Field()
+    logo = scrapy.Field()
+    country = scrapy.Field()
 
