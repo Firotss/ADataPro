@@ -1,7 +1,8 @@
 import scrapy
-from crawler_files.items import MatchesInfo
-from datetime import datetime
 
+from items import MatchesInfo
+from datetime import datetime
+from pipelines import CrawlerFilesPipeline
 class MatchesInfoClass(scrapy.Spider):
 
     name = "MatchesInfo"
@@ -20,4 +21,5 @@ class MatchesInfoClass(scrapy.Spider):
             print("- - - - - - - - - - - - - - - - - - - -")
             print(item)
             print("- - - - - - - - - - - - - - - - - - - -")
-            yield item
+            
+            yield CrawlerFilesPipeline.process_item(self, item, scrapy.Spider)
