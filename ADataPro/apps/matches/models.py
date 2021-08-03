@@ -29,19 +29,29 @@ class TeamsInfo(models.Model):
 def teams():
     matches_list = Matches.objects.all()
     teams_list = []
+    
+    for list_of_matches in matches_list.values():
+            teams_list.append(list_of_matches['team1_name'])
+            teams_list.append(list_of_matches['team2_name'])
+            
+    return teams_list
+
+def next_matches():
+    matches_list = Matches.objects.all()
     weekend_list = []
 
-    for a in matches_list.values():
-        teams_list.append(a['team1_name'])
-        teams_list.append(a['team2_name'])
-        
+    for list_of_matches in matches_list.values():
         time_now = timezone.now()
-        match_date = a['date_match']
+        first_match_date = list_of_matches['date_match']
+        print(first_match_date, time_now-timezone.timedelta(days=3))
+        if(first_match_date < time_now-timezone.timedelta(days=3)):
+            continue
 
-        if(time_now.weekday() >= -6 and time_now.weekday() < -3):
-            if(match_date > time_now and match_date < time_now+timezone.timedelta(days=4)):
-                weekend_list.append(a)
-        elif(match_date > time_now and match_date < time_now+timezone.timedelta(days=7)):
-            weekend_list.append(a)
+        for i in matches_list.values():
+            match_date = i['date_match']
+            if(match_date < first_match_date+timezone.timedelta(days=4) and match_date >= first_match_date):
+                weekend_list.append(i)
 
-    return teams_list, weekend_list
+        break
+
+    return weekend_list

@@ -7,7 +7,7 @@ class MatchesInfoClass(scrapy.Spider):
 
     name = "MatchesInfo"
     allowed_domains = ["openligadb.de"]
-    url = "https://api.openligadb.de/getmatchdata/bl1/2020" #Актуална година + str(datetime.now().year)
+    url = "https://api.openligadb.de/getmatchdata/bl1/2021" #Актуална година + str(datetime.now().year)
     start_urls = [url]
 
     def parse(self, response):
@@ -24,7 +24,7 @@ class MatchesInfoClass(scrapy.Spider):
             print(item)
             print("- - - - - - - - - - - - - - - - - - - -")
             
-            try:
+            if allMatches['matchIsFinished'] == True:
                 extended_item = RankingInfo()
 
                 extended_item["matchID"] = allMatches["matchID"]
@@ -60,8 +60,5 @@ class MatchesInfoClass(scrapy.Spider):
                 extended_item["draws"] = team2_result_draws
 
                 yield CrawlerFilesPipeline.process_extended_item(self, extended_item, scrapy.Spider)
-
-            except:
-                print("no results",allMatches["matchID"])
 
             yield CrawlerFilesPipeline.process_item(self, item, scrapy.Spider)
