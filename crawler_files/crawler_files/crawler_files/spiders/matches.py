@@ -7,8 +7,8 @@ class MatchesInfoClass(scrapy.Spider):
 
     name = "MatchesInfo"
     allowed_domains = ["openligadb.de"]
-    url = "https://api.openligadb.de/getmatchdata/bl1/2021" #Актуална година + str(datetime.now().year)
-    start_urls = [url]
+    url = "https://api.openligadb.de/getmatchdata/bl1/2020" + str(datetime.now().year)  #Актуална година 
+    start_urls = [url]                                     
 
     def parse(self, response):
         item = MatchesInfo()

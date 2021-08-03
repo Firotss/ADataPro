@@ -20,4 +20,5 @@ class RankingInfo(scrapy.Item):
     losses = scrapy.Field()
     draws = scrapy.Field()
     points = scrapy.Field()
+    date_of_ranking = scrapy.Field()
 
