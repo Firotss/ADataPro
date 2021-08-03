@@ -1,10 +1,11 @@
 import sys
 from django.db import models
 from django.utils import timezone
-from datetime import datetime, time, timedelta
-sys.path.append("./crawler_files/crawler_files/crawler_files/")
-from startCrawling import startCrawling
 from multiprocessing import Pool
+
+sys.path.append("./crawler_files/crawler_files/crawler_files/")
+from startCrawling import start_crawling
+
 
 # Create your models here.
 class Matches(models.Model):
@@ -12,9 +13,9 @@ class Matches(models.Model):
     team2_name = models.CharField(max_length=200)
     date_match = models.DateTimeField()
 
-def UpdateDB():
+def update_db():
     pool = Pool(processes=1)
-    pool.apply_async(startCrawling)
+    pool.apply_async(start_crawling)
     pool.close()
 
 class TeamsInfo(models.Model):
@@ -25,17 +26,22 @@ class TeamsInfo(models.Model):
     draws = models.IntegerField()
     points = models.IntegerField()
 
-def Teams():
+def teams():
     matches_list = Matches.objects.all()
     teams_list = []
     weekend_list = []
+
     for a in matches_list.values():
         teams_list.append(a['team1_name'])
         teams_list.append(a['team2_name'])
-        now = timezone.now()
-        if(now.weekday() >= -6 and now.weekday() < -3):
-            if(a['date_match'] > now and a['date_match'] < now+timezone.timedelta(days=4)):
+        
+        time_now = timezone.now()
+        match_date = a['date_match']
+
+        if(time_now.weekday() >= -6 and time_now.weekday() < -3):
+            if(match_date > time_now and match_date < time_now+timezone.timedelta(days=4)):
                 weekend_list.append(a)
-        elif(a['date_match'] > now and a['date_match'] < now+timezone.timedelta(days=7)):
+        elif(match_date > time_now and match_date < time_now+timezone.timedelta(days=7)):
             weekend_list.append(a)
+
     return teams_list, weekend_list

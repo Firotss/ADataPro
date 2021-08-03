@@ -1,23 +1,25 @@
 from django.db.models.aggregates import Sum
 from django.shortcuts import render
-from .models import Matches, Teams, TeamsInfo, UpdateDB
-from django.db.models import Count, query
+from .models import Matches, teams, TeamsInfo, update_db
 
 def index(request):
     matches_list = Matches.objects.all()
-    teams_list, weekend_list = Teams()
-    UpdateDB()
-    return render(request, 'matches/list.html', {'matches_list': matches_list, 
-    'teams_list': set(teams_list), 'weekend_list': weekend_list})
+    teams_list, weekend_list = teams()
+    update_db()
+
+    return render(request, 'matches/list.html', 
+                    {'list': matches_list, 
+                    'teams_list': set(teams_list)})
 
 
 def search(request, id):
     matches_list = Matches.objects.all()
-    teams_list, weekend_list = Teams()
+    teams_list, weekend_list = teams()
 
     ranking_list = TeamsInfo.objects.values('team_name').annotate(
-    wins=Sum('wins'), losses=Sum('losses'), draws=Sum('draws'), points=Sum('points')
-    ).order_by('wins', 'draws', 'points').reverse()
+                            wins=Sum('wins'), losses=Sum('losses'), 
+                            draws=Sum('draws'), points=Sum('points')
+                            ).order_by('wins', 'draws', 'points').reverse()
     
     if id == '0':
         return render(request, 'matches/list.html', {'list':matches_list, 'teams_list': set(teams_list)})

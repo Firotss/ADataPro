@@ -1,30 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
     <div class="table">
         <div class="first">
-            <div class="cell-1">
-            Position
-            </div>
-            <div class="cell-2">
-            Name
-            </div>
-            <div class="cell-3">
-            Wins
-            </div>
-            <div class="cell-4">
-            Losses
-            </div>
-            <div class="cell-5">
-            Draws
-            </div>
-            <div class="cell-6">
-            Points
-            </div>
+            <div class="cell-1">Position</div>
+            <div class="cell-2">Name</div>
+            <div class="cell-3">Wins</div>
+            <div class="cell-4">Losses</div>
+            <div class="cell-5">Draws</div>
+            <div class="cell-6">Points</div>
         </div>
     </div>
+
     {{ myval|floatformat }}
     {% for a in list %}
+
         <div class="table">
             <div class="second">
                 <div class="cell" data-title="Position">{{ forloop.counter }}</div>
@@ -35,5 +26,6 @@
                 <div class="cell" data-title="Points">{{a.points}}</div>
             </div>
         </div>
+
     {% endfor %} 
 {% endblock %}

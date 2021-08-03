@@ -15,12 +15,15 @@ class MatchesInfoClass(scrapy.Spider):
         jsonresponse = response.json()
 
         for allMatches in jsonresponse:
+
             item["team1"] = allMatches["team1"]["teamName"]
             item["team2"] = allMatches["team2"]["teamName"]
             item["date"] = allMatches["matchDateTime"]
+
             print("- - - - - - - - - - - - - - - - - - - -")
             print(item)
             print("- - - - - - - - - - - - - - - - - - - -")
+            
             try:
                 extended_item = RankingInfo()
 
@@ -60,4 +63,5 @@ class MatchesInfoClass(scrapy.Spider):
 
             except:
                 print("no results",allMatches["matchID"])
+
             yield CrawlerFilesPipeline.process_item(self, item, scrapy.Spider)

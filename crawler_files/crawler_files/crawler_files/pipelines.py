@@ -17,16 +17,15 @@ class CrawlerFilesPipeline:
     def process_item(self, item, spider):
         self.connection = sqlite3.connect('db.sqlite3')
         self.cursor = self.connection.cursor()
-        matchdb = self.cursor.execute("""SELECT * FROM matches_matches""")
+
+        match_db = self.cursor.execute("""SELECT * FROM matches_matches""")
+
         check = 0
-        for i in matchdb:
+
+        for i in match_db:
             if i[3] == item['date'] and i[2] == item['team2'] and i[1] == item['team1']:
-                print("-------------------------")
-                print(i[1], item['team1'])
-                print(i[2], item['team2'])
-                print(i[3], item['date'])
-                print("-------------------------")
                 check = i[0]
+
         if(check == 0):
             self.cursor.execute(
                 """INSERT INTO matches_matches (team1_name, team2_name, date_match) values (?, ?, ?)""",
@@ -38,14 +37,18 @@ class CrawlerFilesPipeline:
                 """UPDATE matches_matches SET team1_name = ?, team2_name = ?, date_match = ? WHERE id = ?""",
                 (item['team1'], item['team2'], item['date'], check),
             )
+
         self.connection.commit()
         return item
 
     def process_extended_item(self, item, spider):
         self.connection = sqlite3.connect('db.sqlite3')
         self.cursor = self.connection.cursor()
+
         teamsdb = self.cursor.execute("""SELECT * FROM matches_teamsinfo""")
+
         check = 0
+
         for i in teamsdb:
             if i[2] == item['team_name'] and i[1] == item['matchID']:
                 check = i[0]
@@ -61,6 +64,7 @@ class CrawlerFilesPipeline:
                 """UPDATE matches_teamsinfo SET wins = ?, losses = ?, draws = ?, points = ? WHERE id = ?""",
                 (item['wins'], item['losses'], item['draws'], item['points'], check),
             )
+            
         self.connection.commit()
         return item
 
