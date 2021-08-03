@@ -9,9 +9,15 @@ import scrapy
 class MatchesInfo(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    Team1 = scrapy.Field()
-    Team2 = scrapy.Field()
-    #Result = scrapy.Field()
-    Date = scrapy.Field()
+    team1 = scrapy.Field()
+    team2 = scrapy.Field()
+    date = scrapy.Field()
     
+class RankingInfo(scrapy.Item):
+    matchID = scrapy.Field()
+    team_name = scrapy.Field()
+    wins = scrapy.Field()
+    losses = scrapy.Field()
+    draws = scrapy.Field()
+    points = scrapy.Field()
 

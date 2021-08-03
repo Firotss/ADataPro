@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-{% block title %}А?{% endblock %}
-
 {% block content %}
     <div class="table">
         <div class="first">
@@ -16,7 +14,7 @@
             </div>
         </div>
     </div>
-    {% for a in matches_list %}
+    {% for a in list %}
         <div class="table">
             <div class="second">
                 <div class="cell" data-title="Team1">{{a.team1_name}}</div>
