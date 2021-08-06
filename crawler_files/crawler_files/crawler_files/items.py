@@ -12,6 +12,8 @@ class MatchesInfo(scrapy.Item):
     team1 = scrapy.Field()
     team2 = scrapy.Field()
     date = scrapy.Field()
+    year_of_season = scrapy.Field()
+    matchID = scrapy.Field()
     
 class RankingInfo(scrapy.Item):
     matchID = scrapy.Field()
@@ -20,5 +22,5 @@ class RankingInfo(scrapy.Item):
     losses = scrapy.Field()
     draws = scrapy.Field()
     points = scrapy.Field()
-    date_of_ranking = scrapy.Field()
+    year_of_season = scrapy.Field()
 

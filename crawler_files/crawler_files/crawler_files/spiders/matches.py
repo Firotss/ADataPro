@@ -1,21 +1,25 @@
 import scrapy
+try:
+    from items import MatchesInfo, RankingInfo
+    from pipelines import CrawlerFilesPipeline
+except:
+    from ..items import MatchesInfo, RankingInfo
+    from ..pipelines import CrawlerFilesPipeline
 
-from items import MatchesInfo, RankingInfo
-from datetime import datetime
-from pipelines import CrawlerFilesPipeline
 class MatchesInfoClass(scrapy.Spider):
 
     name = "MatchesInfo"
     allowed_domains = ["openligadb.de"]
-    url = "https://api.openligadb.de/getmatchdata/bl1/2020" + str(datetime.now().year)  #Актуална година 
-    start_urls = [url]                                     
+    start_urls = []                                     
 
     def parse(self, response):
+        year = response.url[-4:]
         item = MatchesInfo()
         jsonresponse = response.json()
 
         for allMatches in jsonresponse:
-
+            item["matchID"] = allMatches["matchID"]
+            item["year_of_season"] = year
             item["team1"] = allMatches["team1"]["teamName"]
             item["team2"] = allMatches["team2"]["teamName"]
             item["date"] = allMatches["matchDateTime"]
@@ -30,7 +34,7 @@ class MatchesInfoClass(scrapy.Spider):
                 extended_item["matchID"] = allMatches["matchID"]
                 extended_item["points"] = allMatches["matchResults"][0]['pointsTeam1']
                 extended_item["team_name"] = allMatches["team1"]["teamName"]
-
+                extended_item["year_of_season"] = year
                 team2_result_wins = '0'
                 team2_result_losses = '0'
                 team2_result_draws = '0'

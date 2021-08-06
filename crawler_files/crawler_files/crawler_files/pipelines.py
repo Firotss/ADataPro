@@ -23,13 +23,13 @@ class CrawlerFilesPipeline:
         check = 0
 
         for i in match_db:
-            if i[3] == item['date'] and i[2] == item['team2'] and i[1] == item['team1']:
+            if i[4] == item['matchID']:
                 check = i[0]
 
         if(check == 0):
             self.cursor.execute(
-                """INSERT INTO matches_matches (team1_name, team2_name, date_match) values (?, ?, ?)""",
-                (item['team1'], item['team2'], item['date']),
+                """INSERT INTO matches_matches (team1_name, team2_name, date_match, year, matchID) values (?, ?, ?, ?, ?)""",
+                (item['team1'], item['team2'], item['date'], item['year_of_season'], item['matchID']),
             )
             
         else:
@@ -55,8 +55,8 @@ class CrawlerFilesPipeline:
 
         if(check == 0):
             self.cursor.execute(
-                """INSERT INTO matches_teamsinfo (matchID, team_name, wins, losses, draws, points) values (?, ?, ?, ?, ?, ?)""",
-                (item['matchID'], item['team_name'], item['wins'], item['losses'], item['draws'], item['points']),
+                """INSERT INTO matches_teamsinfo (matchID, team_name, wins, losses, draws, points, date) values (?, ?, ?, ?, ?, ?, ?)""",
+                (item['matchID'], item['team_name'], item['wins'], item['losses'], item['draws'], item['points'], item['year_of_season']),
             )
             
         else:

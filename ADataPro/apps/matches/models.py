@@ -12,6 +12,8 @@ class Matches(models.Model):
     team1_name = models.CharField(max_length=200)
     team2_name = models.CharField(max_length=200)
     date_match = models.DateTimeField()
+    year = models.IntegerField()
+    matchID = models.IntegerField()
 
 def update_db():
     pool = Pool(processes=1)
@@ -25,6 +27,7 @@ class TeamsInfo(models.Model):
     losses = models.IntegerField()
     draws = models.IntegerField()
     points = models.IntegerField()
+    date = models.IntegerField()
 
 def teams():
     matches_list = Matches.objects.all()
