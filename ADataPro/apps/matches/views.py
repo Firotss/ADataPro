@@ -14,7 +14,7 @@ def index(request):
 
 
 def search(request, id):
-    matches_list = Matches.objects.all().filter(year = int(timezone.now().year))
+    matches_list = Matches.objects.all()
     teams_list = teams()
     
     if id == 'all_matches':
@@ -30,10 +30,10 @@ def search(request, id):
         return render(request, 'matches/ranking.html', {'list':ranking_list, 'teams_list': set(teams_list)})
     
     searched_team = []
-    for a in matches_list.values():
-        if(a['team1_name'] == id or a['team2_name'] == id):
-            searched_team.append(a)
-
+    for actual_teams_list in matches_list.values():
+        if(actual_teams_list['team1_name'] == id or actual_teams_list['team2_name'] == id):
+            searched_team.append(actual_teams_list)
+    
     return render(request, 'matches/list.html', {'list':searched_team, 'teams_list': set(teams_list)})
 
     
