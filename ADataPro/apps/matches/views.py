@@ -14,7 +14,7 @@ def index(request):
 
 
 def search(request, id):
-    matches_list = Matches.objects.all()
+    matches_list = Matches.objects.all().filter(year = int(timezone.now().year))
     teams_list = teams()
     
     if id == 'all_matches':
