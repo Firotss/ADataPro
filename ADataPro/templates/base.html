@@ -15,9 +15,9 @@
     <form name="form" method="get" action="/">
         <select name="subject" id="subject" onchange='window.location="/"+this.value;' style="height:30px; width:250px;">
             <option value="0" selected="selected"></option>
-            <option value="0">All matches of the actual season</option>
-            <option value="1">Next upcoming matches</option>
-            <option value="2">Win/Loss Ratio of the actual season</option>
+            <option value="all_matches">All matches of the actual season</option>
+            <option value="next_matches">Next upcoming matches</option>
+            <option value="ranking">Win/Loss Ratio of the actual season</option>
 
             {% for a in teams_list %}
                 <option value="{{a}}">{{a}}</option>

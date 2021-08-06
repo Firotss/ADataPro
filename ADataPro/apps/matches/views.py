@@ -15,17 +15,17 @@ def index(request):
 def search(request, id):
     matches_list = Matches.objects.all()
     teams_list = teams()
-    weekend_list = next_matches()
-    ranking_list = TeamsInfo.objects.values('team_name').annotate(
+
+    if id == 'all_matches':
+        return render(request, 'matches/list.html', {'list':matches_list, 'teams_list': set(teams_list)})
+    if id == 'next_matches':
+        weekend_list = next_matches()
+        return render(request, 'matches/list.html', {'list':weekend_list, 'teams_list': set(teams_list)})
+    if id == 'ranking':
+        ranking_list = TeamsInfo.objects.values('team_name').annotate(
                             wins=Sum('wins'), losses=Sum('losses'), 
                             draws=Sum('draws'), points=Sum('points')
                             ).order_by('wins', 'draws', 'points').reverse()
-    
-    if id == '0':
-        return render(request, 'matches/list.html', {'list':matches_list, 'teams_list': set(teams_list)})
-    if id == '1':
-        return render(request, 'matches/list.html', {'list':weekend_list, 'teams_list': set(teams_list)})
-    if id == '2':
         return render(request, 'matches/ranking.html', {'list':ranking_list, 'teams_list': set(teams_list)})
 
     searched_team = []
