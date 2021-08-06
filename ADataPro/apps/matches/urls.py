@@ -8,4 +8,5 @@ urlpatterns = [
     path('all_matches/<str:id>/', views.all_matches, name = 'all_matches'),
     path('ranking/<str:id>/', views.ranking, name = 'ranking'),
     path('<str:id>/', views.search, name = 'search'),
+    path('<str:team_id>/<str:year_id>/', views.search_by_year, name = 'search_team_by_year'),
 ]

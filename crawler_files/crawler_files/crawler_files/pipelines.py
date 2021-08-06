@@ -28,8 +28,8 @@ class CrawlerFilesPipeline:
 
         if(check == 0):
             self.cursor.execute(
-                """INSERT INTO matches_matches (team1_name, team2_name, date_match, year, matchID) values (?, ?, ?, ?, ?)""",
-                (item['team1'], item['team2'], item['date'], item['year_of_season'], item['matchID']),
+                """INSERT INTO matches_matches (team1_name, team2_name, date_match, year, matchID, img_link_team1, img_link_team2) values (?, ?, ?, ?, ?, ?, ?)""",
+                (item['team1'], item['team2'], item['date'], item['year_of_season'], item['matchID'], item['img_team1'], item['img_team2']),
             )
             
         else:
@@ -55,14 +55,14 @@ class CrawlerFilesPipeline:
 
         if(check == 0):
             self.cursor.execute(
-                """INSERT INTO matches_teamsinfo (matchID, team_name, wins, losses, draws, points, date) values (?, ?, ?, ?, ?, ?, ?)""",
-                (item['matchID'], item['team_name'], item['wins'], item['losses'], item['draws'], item['points'], item['year_of_season']),
+                """INSERT INTO matches_teamsinfo (matchID, team_name, wins, losses, draws, points, date, img_link_team) values (?, ?, ?, ?, ?, ?, ?, ?)""",
+                (item['matchID'], item['team_name'], item['wins'], item['losses'], item['draws'], item['points'], item['year_of_season'], item['img']),
             )
             
         else:
             self.cursor.execute(
-                """UPDATE matches_teamsinfo SET wins = ?, losses = ?, draws = ?, points = ? WHERE id = ?""",
-                (item['wins'], item['losses'], item['draws'], item['points'], check),
+                """UPDATE matches_teamsinfo SET wins = ?, losses = ?, draws = ?, points = ? img_link_team = ? WHERE id = ?""",
+                (item['wins'], item['losses'], item['draws'], item['points'], item['img'], check),
             )
             
         self.connection.commit()

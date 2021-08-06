@@ -36,6 +36,16 @@ def search(request, id):
     
     return render(request, 'matches/list.html', {'list':searched_team, 'teams_list': set(teams_list)})
 
+def search_by_year(request, team_id, year_id):
+    matches_list = Matches.objects.all().filter(year = int(year_id))
+    teams_list = teams()
+
+    searched_team = []
+    for actual_teams_list in matches_list.values():
+        if(actual_teams_list['team1_name'] == team_id or actual_teams_list['team2_name'] == team_id):
+            searched_team.append(actual_teams_list)
+    
+    return render(request, 'matches/list.html', {'list':searched_team, 'teams_list': set(teams_list)})
     
 def all_matches(request, id):
     teams_list = teams()

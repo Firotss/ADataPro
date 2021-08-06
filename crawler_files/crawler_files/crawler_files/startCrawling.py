@@ -8,11 +8,11 @@ def start_crawling():
 
     date_now = int(datetime.now().year)
 
-    #while (date_now >= 2002):
-    #    MatchesInfoClass.start_urls.append("https://api.openligadb.de/getmatchdata/bl1/" + str(date_now))
-    #    date_now = date_now - 1 #update на всичко
+    while (date_now >= 2002):
+        MatchesInfoClass.start_urls.append("https://api.openligadb.de/getmatchdata/bl1/" + str(date_now))
+        date_now = date_now - 1 #update на всичко
 
-    MatchesInfoClass.start_urls.append("https://api.openligadb.de/getmatchdata/bl1/" + str(date_now))
+    #MatchesInfoClass.start_urls.append("https://api.openligadb.de/getmatchdata/bl1/" + str(date_now))
     process.crawl(MatchesInfoClass)
     process.start()
         

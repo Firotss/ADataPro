@@ -23,7 +23,8 @@ class MatchesInfoClass(scrapy.Spider):
             item["team1"] = allMatches["team1"]["teamName"]
             item["team2"] = allMatches["team2"]["teamName"]
             item["date"] = allMatches["matchDateTime"]
-
+            item["img_team1"] = allMatches["team1"]["teamIconUrl"]
+            item["img_team2"] = allMatches["team2"]["teamIconUrl"]
             print("- - - - - - - - - - - - - - - - - - - -")
             print(item)
             print("- - - - - - - - - - - - - - - - - - - -")
@@ -34,6 +35,7 @@ class MatchesInfoClass(scrapy.Spider):
                 extended_item["matchID"] = allMatches["matchID"]
                 extended_item["points"] = allMatches["matchResults"][0]['pointsTeam1']
                 extended_item["team_name"] = allMatches["team1"]["teamName"]
+                extended_item["img"] = allMatches["team1"]["teamIconUrl"]
                 extended_item["year_of_season"] = year
                 team2_result_wins = '0'
                 team2_result_losses = '0'
@@ -62,7 +64,7 @@ class MatchesInfoClass(scrapy.Spider):
                 extended_item["wins"] = team2_result_wins
                 extended_item["losses"] = team2_result_losses
                 extended_item["draws"] = team2_result_draws
-
+                extended_item["img"] = allMatches["team2"]["teamIconUrl"]
                 yield CrawlerFilesPipeline.process_extended_item(self, extended_item, scrapy.Spider)
 
             yield CrawlerFilesPipeline.process_item(self, item, scrapy.Spider)

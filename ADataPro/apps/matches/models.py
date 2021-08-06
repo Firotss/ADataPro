@@ -14,6 +14,8 @@ class Matches(models.Model):
     date_match = models.DateTimeField()
     year = models.IntegerField()
     matchID = models.IntegerField()
+    img_link_team1 = models.CharField(max_length=200)
+    img_link_team2 = models.CharField(max_length=200)
 
 def update_db():
     pool = Pool(processes=1)
@@ -28,6 +30,7 @@ class TeamsInfo(models.Model):
     draws = models.IntegerField()
     points = models.IntegerField()
     date = models.IntegerField()
+    img_link_team = models.CharField(max_length=200)
 
 def teams():
     matches_list = Matches.objects.all()

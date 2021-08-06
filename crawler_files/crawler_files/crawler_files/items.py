@@ -14,6 +14,8 @@ class MatchesInfo(scrapy.Item):
     date = scrapy.Field()
     year_of_season = scrapy.Field()
     matchID = scrapy.Field()
+    img_team1 = scrapy.Field()
+    img_team2 = scrapy.Field()
     
 class RankingInfo(scrapy.Item):
     matchID = scrapy.Field()
@@ -23,4 +25,5 @@ class RankingInfo(scrapy.Item):
     draws = scrapy.Field()
     points = scrapy.Field()
     year_of_season = scrapy.Field()
+    img = scrapy.Field()
 
