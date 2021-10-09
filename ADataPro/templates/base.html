@@ -20,10 +20,11 @@
             <option value="ranking">Win/Loss Ratio of the actual season</option>
 
             {% for a in teams_list %}
-                <option value="{{a}}">{{a}}</option>
-            {% endfor %} 
+            <option value="{{a}}">{{a}}</option>
+            {% endfor %}
         </select>
     </form>
+    
     {% block content %}{% endblock %}
 </body>
 
