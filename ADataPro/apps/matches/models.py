@@ -49,7 +49,7 @@ def next_matches():
     for list_of_matches in matches_list.values():
         time_now = timezone.now()
         first_match_date = list_of_matches['date_match']
-        print(first_match_date, time_now-timezone.timedelta(days=3))
+        # print(first_match_date, time_now-timezone.timedelta(days=3))
         if(first_match_date < time_now-timezone.timedelta(days=3)):
             continue
 

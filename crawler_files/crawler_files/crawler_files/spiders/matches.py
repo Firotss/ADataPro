@@ -25,9 +25,9 @@ class MatchesInfoClass(scrapy.Spider):
             item["date"] = allMatches["matchDateTime"]
             item["img_team1"] = allMatches["team1"]["teamIconUrl"]
             item["img_team2"] = allMatches["team2"]["teamIconUrl"]
-            print("- - - - - - - - - - - - - - - - - - - -")
-            print(item)
-            print("- - - - - - - - - - - - - - - - - - - -")
+            # print("- - - - - - - - - - - - - - - - - - - -")
+            # print(item)
+            # print("- - - - - - - - - - - - - - - - - - - -")
             
             if allMatches['matchIsFinished'] == True:
                 extended_item = RankingInfo()
