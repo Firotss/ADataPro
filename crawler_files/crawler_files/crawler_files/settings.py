@@ -86,3 +86,9 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+CONCURRENT_REQUESTS = 1
+
+DOWNLOAD_DELAY = 0.5
+
+CONCURRENT_ITEMS = 1
